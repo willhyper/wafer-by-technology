@@ -1,10 +1,9 @@
 import numpy as np
-from collections import namedtuple
 
 # https://investor.tsmc.com/english/quarterly-results/2021/q1
 
 technology = ['5nm', '7nm', '10nm', '16nm', '20nm', '28nm',
-              '40/45nm,', '65nm,', '90nm', '0.11/0.13um', '0.15/0.18um', '0.25um+']
+              '40/45nm', '65nm', '90nm', '0.11/0.13um', '0.15/0.18um', '0.25um+']
 
 measurements = {  # revenue, shipment, technology revenue share by quarter
     # quarter : Million NTD, K piece of wafer, %
