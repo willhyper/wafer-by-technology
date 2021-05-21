@@ -165,3 +165,4 @@ print('wafer price (K NTD)',wafer_price)
 
 # unit K NTD
 '''
+# todo: enforce K must be non-negative
