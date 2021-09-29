@@ -7,6 +7,7 @@ technology = ['5nm', '7nm', '10nm', '16nm', '20nm', '28nm',
 
 measurements = {  # revenue, shipment, technology revenue share by quarter
     # quarter : Million NTD, K piece of wafer, %
+    '2021Q2': (372145,	3449, np.array([18, 31, 0, 14, 0, 11, 7, 5, 3, 3, 6, 2])/100),
     '2021Q1': (362410,	3359, np.array([14, 35, 0, 14, 0, 11, 7, 5, 3, 3, 6, 2])/100),
     '2020Q4': (361530,	3246, np.array([20, 29, 0, 13, 1, 11, 8, 5, 2, 3, 7, 1])/100),
     '2020Q3': (356430,	3240, np.array([8, 35, 0, 18, 1, 12, 8, 5, 2, 2, 7, 2])/100),
