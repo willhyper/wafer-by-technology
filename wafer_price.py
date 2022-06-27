@@ -1,31 +1,11 @@
 
-import tsmc as data
+from tsmc import df, technology
 import numpy as np
 from scipy.optimize import minimize, nnls, LinearConstraint
 
-quarters = data.quarters()
-
-def _iter_to_array(it):
-    return np.array(list(it))
-
-def _revenue_of_tech(tech): 
-    return _iter_to_array(data.revenue_of_technology(tech).values())/1000  # M NTD to B NTD
-
-revenue_matrix = np.array(
-    [
-        _revenue_of_tech('5nm'),
-        _revenue_of_tech('7nm'),
-        _revenue_of_tech('10nm'),
-        _revenue_of_tech('16nm'),
-        _revenue_of_tech('20nm'),
-        _revenue_of_tech('28nm'),
-        _revenue_of_tech('40/45nm'),
-        _revenue_of_tech('65nm'),
-        _revenue_of_tech('90nm'),
-        _revenue_of_tech('0.11/0.13um'),
-        _revenue_of_tech('0.15/0.18um'),
-        _revenue_of_tech('0.25um+'),
-    ])
+dft = df[technology]
+revenue = df['revenue(MNTD)']
+revenue_matrix = dft.apply(lambda x : x.mul(revenue) / 1000).to_numpy().transpose()
 ''' # Revenue (B NTD): technology (5nm, 7nm, ...) by quarters (2021Q2, 2021Q1, 2020Q4, 2020Q3, ...)
 array([[ 66.9861 ,  50.7374 ,  72.306  ,  28.5144 ,   0.     ,   0.     ,
           0.     ,   0.     ,   0.     ,   0.     ,   0.     ,   0.     ,
@@ -67,7 +47,7 @@ array([[ 66.9861 ,  50.7374 ,  72.306  ,  28.5144 ,   0.     ,   0.     ,
 '''
 
 
-shipments = _iter_to_array(data.shipments().values())/1000 # kpcs to Mpcs
+shipments = df['shipment(Kpcs)'] / 1000 # kpcs to Mpcs
 '''
 array([3.449, 3.359, 3.246, 3.24 , 2.985, 2.925, 2.823, 2.733, 2.308,
        2.205, 2.686, 2.712, 2.674, 2.68 ])
@@ -216,7 +196,7 @@ _S_diff = np.abs(np.sum(Stq,0) - S)
 print('lstsq error. max difference (M pcs) in shipment of some quarter', np.max(_S_diff), '.improve it to 0 ideally')
 
 # wafer price by technology
-wafer_price = { tech : price for price, tech in zip(P, data.technology)}
+wafer_price = { tech : price for price, tech in zip(P, technology)}
 print('wafer price (K NTD)',wafer_price)
 
 '''
